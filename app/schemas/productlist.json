@@ -1,0 +1,55 @@
+{
+    "definitions": {},
+    "id": "products",
+    "items": {
+        "id": "/items",
+        "properties": {
+            "brand": {
+                "id": "/items/properties/brand",
+                "type": "string"
+            },
+            "categories": {
+                "id": "/items/properties/categories",
+                "items": {
+                    "id": "/items/properties/categories/items",
+                    "type": "string"
+                },
+                "type": "array"
+            },
+            "description": {
+                "id": "/items/properties/description",
+                "type": "string"
+            },
+            "name": {
+                "id": "/items/properties/name",
+                "type": "string"
+            },
+            "price": {
+                "id": "/items/properties/price",
+                "type": "string"
+            },
+            "product_image_url": {
+                "id": "/items/properties/product_image_url",
+                "type": "string"
+            },
+            "size": {
+                "id": "/items/properties/size",
+                "items": {
+                    "id": "/items/properties/size/items",
+                    "type": "string"
+                },
+                "type": "array"
+            },
+            "sku": {
+                "id": "/items/properties/sku",
+                "type": "string"
+            },
+            "special_price": {
+                "id": "/items/properties/special_price",
+                "type": "string"
+            }
+        },
+        "type": "object"
+    },
+    "type": "array"
+}
