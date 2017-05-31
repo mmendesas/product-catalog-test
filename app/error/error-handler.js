@@ -19,41 +19,26 @@ var errorHandler = {
         res.render('error', { error: err })
     },
 
-    schemaValidation: function (app) {
-        return function (err, req, res, next) {
-            var responseData;
+    schemaValidation: function (err, req, res, next) {
+        var responseData;
 
-            if (err.name === 'JsonSchemaValidation') {
-                // Log the error however you please
-                console.log(err.message);
-                // logs "express-jsonschema: Invalid data found"
+        if (err.name === 'MySchemaValidation') {
 
-                // Set a bad request http response status or whatever you want
-                res.status(400);
+            console.log(err.message);
 
-                // Format the response body however you want
-                responseData = {
-                    statusText: 'Bad Request',
-                    jsonSchemaValidation: true,
-                    validations: err.validations  // All of your validation information
-                };
+            responseData = {
+                statusText: 'Bad Request',
+                schemaValidation: true,
+                validationErrors: err.validations
+            };
 
-                // Take into account the content type if your app serves various content types
-                if (req.xhr || req.get('Content-Type') === 'application/json') {
-                    res.json(responseData);
-                } else {
-                    // If this is an html request then you should probably have
-                    // some type of Bad Request html template to respond with
-                    res.render('badrequestTemplate', responseData);
-                }
-            } else {
-                // pass error to next error middleware handler
-                next(err);
-            }
+            res.status(400).json(responseData);
+
+        } else {
+            // pass error to next error middleware handler
+            next(err);
         }
     }
-
-
 }
 
 module.exports = errorHandler;

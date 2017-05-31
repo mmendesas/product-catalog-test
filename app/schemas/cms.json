@@ -1,0 +1,18 @@
+{    
+    "id": "/cms",
+    "items": {
+        "id": "/items",
+        "properties": {
+            "content": {
+                "id": "/items/properties/content",
+                "type": "string"
+            },
+            "region": {
+                "id": "/items/properties/region",
+                "type": "string"
+            }
+        },
+        "type": "object"
+    },
+    "type": "array"
+}

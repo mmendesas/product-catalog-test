@@ -9,12 +9,16 @@ module.exports = function () {
 
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
-    app.use(errhandler.schemaValidation(app))
 
     consign({ cwd: 'app' })
         .include('controllers')
         .into(app);
 
-    return app;
+    // handle errors
+    app.use(errhandler.schemaValidation);
+    app.use(errhandler.logErrors);
+    app.use(errhandler.clientErrorHandler);
+    app.use(errhandler.errorHandler);
 
+    return app;
 }

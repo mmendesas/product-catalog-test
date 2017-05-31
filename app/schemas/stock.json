@@ -1,0 +1,14 @@
+{        
+    "id": "/stock",
+    "properties": {
+        "quantity": {
+            "id": "/properties/quantity",
+            "type": "integer"
+        },
+        "warehouse": {
+            "id": "/properties/warehouse",
+            "type": "string"
+        }
+    },
+    "type": "object"
+}
