@@ -11,7 +11,8 @@ module.exports = function () {
     app.use(bodyParser.json());
 
     consign({ cwd: 'app' })
-        .include('controllers')
+        .include('models')
+        .then('controllers')
         .into(app);
 
     // handle errors

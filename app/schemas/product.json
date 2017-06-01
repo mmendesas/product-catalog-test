@@ -1,0 +1,68 @@
+{    
+    "properties": {
+        "sku": {
+            "id": "/items/properties/sku",
+            "type": "string",
+            "required": true
+        },
+        "price": {
+            "id": "/items/properties/price",
+            "type": [
+                "string",
+                "number"
+            ],
+            "required": true
+        },
+        "name": {
+            "id": "/items/properties/name",
+            "type": "string",
+            "required": true
+        },
+        "description": {
+            "id": "/items/properties/description",
+            "type": "string",
+            "required": true
+        },
+        "size": {
+            "id": "/items/properties/size",
+            "items": {
+                "id": "/items/properties/size/items",
+                "type": "string"
+            },
+            "type": [
+                "array",
+                "string"
+            ],
+            "required": true
+        },
+        "brand": {
+            "id": "/items/properties/brand",
+            "type": "string",
+            "required": true
+        },
+        "categories": {
+            "id": "/items/properties/categories",
+            "items": {
+                "id": "/items/properties/categories/items",
+                "type": "string"
+            },
+            "type": "array",
+            "required": true
+        },
+        "product_image_url": {
+            "id": "/items/properties/product_image_url",
+            "type": "string",
+            "required": true,
+            "pattern": "(^http(s?):)|([/|.|\\w|\\s])*\\.(?:jpg|jpeg|png|gif)$"
+        },
+        "special_price": {
+            "id": "/items/properties/special_price",
+            "type": [
+                "string",
+                "number"
+            ],
+            "required": false
+        }
+    },
+    "type": "object"
+}
