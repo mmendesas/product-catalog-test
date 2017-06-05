@@ -7,7 +7,7 @@ module.exports =
         list(req, res) {
             console.log("[MONGO] - get all products");
             model
-                .find({})
+                .find(req.query)
                 .then(function (products) {
                     res.json(products);
                 }, function (err) {
@@ -19,10 +19,10 @@ module.exports =
         findById(req, res) {
             console.log("[MONGO] - find product by ID");
             model
-                .findById(req.params.id)
-                .then(function (project) {
-                    if (!project) throw Error('Product not found!');
-                    res.json(project);
+                .find({ sku: req.params.id })
+                .then(function (product) {
+                    if (!product) throw Error('Product not found!');
+                    res.json(product);
                 }, function (err) {
                     console.log(err);
                     res.status(500).json(err);
@@ -43,42 +43,35 @@ module.exports =
 
         add(req, res) {
             console.log("[MONGO] - add products");
-
             var products = req.body;
-
-            // model
-            //     .insertMany(products)
-            //     .then(function (_products) {
-            //         res.sendStatus(201).json(_products);
-            //     }, function (err) {
-            //         console.log(err);
-            //         res.status(500).json(err);
-            //     });
-
-            products
-                .forEach(function (product) {
-                    model
-                        .find({ sku: product.sku }, function (err, docs) {
-                            if (!docs.length) {
-                                model
-                                    .create(product)
-                                    .catch(function (err) {
-                                        console.log(err);
-                                        res.status(500).json(err);
-                                    });
-                            } else {
-                                var msg = "Product [" + product.sku + "] already exists";
-                                console.log(msg);
-                                res.status(422).send({ "messsage": msg });
-                            }
-                        });
+            model
+                .find(products)
+                .then(function (prodList) {
+                    if (prodList.length > 0) {
+                        var msg = "Products already exists";
+                        var response = {
+                            messsage: msg,
+                            products: prodList
+                        }
+                        console.log(msg);
+                        res.status(422).send(response);
+                    } else {
+                        model
+                            .insertMany(products)
+                            .then(function (_products) {
+                                res.sendStatus(201).json(_products);
+                            }, function (err) {
+                                console.log(err);
+                                res.status(500).json(err);
+                            });
+                    }
                 });
         };
 
         update(req, res) {
             console.log("[MONGO] - update product");
             model
-                .findByIdAndUpdate(req.params.id, req.body)
+                .update({ sku: req.params.id }, req.body)
                 .then(function (product) {
                     res.json(product);
                 }, function (err) {
