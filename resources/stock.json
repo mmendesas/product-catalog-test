@@ -1,0 +1,27 @@
+[
+    {
+        "warehouse": "WH01",
+        "sku": "BATMAN-123",
+        "size": [
+            "V8",
+            "V16"
+        ]
+    },
+    {
+        "warehouse": "WH02",
+        "sku": "BATMAN-123",
+        "size": [
+            "V8",
+            "V12",
+            "V16"
+        ]
+    },
+    {
+        "warehouse": "WH03",
+        "sku": "SPD-99",
+        "size": [
+            "34",
+            "35"
+        ]
+    }
+]

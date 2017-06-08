@@ -1,13 +1,12 @@
-var redis = require('redis');
-var client = redis.createClient();
+var redisConf = require('../../config/redis-conf');
 
 module.exports =
     class RedisProductsDAO {
 
-        list(req, res) {
-            console.log("[REDIS] - get all products");
+        list(req, res) {            
+            console.log("[REDIS] - Products - get all");
             var list = [];
-            client.hgetall('Products', function (err, products) {
+            redisConf.getClient().hgetall('Products', function (err, products) {
                 if (products) {
                     Object.keys(products)
                         .forEach(function (key) {
@@ -19,39 +18,38 @@ module.exports =
         };
 
         findById(req, res) {
-            console.log("[REDIS] - find product by ID");
+            console.log("[REDIS] - Products - find by ID");
             var _id = req.params.id;
-            client.hget('Products', _id, function (err, product) {
+            redisConf.getClient().hget('Products', _id, function (err, product) {
                 res.status(201).json(JSON.parse(product));
             });
         };
 
         removeById(req, res) {
-            console.log("[REDIS] - remove product by ID");
+            console.log("[REDIS] - Products - remove by ID");
             var _id = req.params.id;
             if (_id) {
-                client.hdel("Products", _id);
+                redisConf.getClient().hdel("Products", _id);
             }
         };
 
-        add(req, res) {
-            console.log("[REDIS] - add products");
+        add(req, res) {            
+            console.log("[REDIS] - Products - add");
             var products = req.body;
             products.forEach(function (product) {
-                client.hset('Products', product.sku, JSON.stringify(product));
+                redisConf.getClient().hset('Products', product.sku, JSON.stringify(product));
             });
 
             res.sendStatus(201);//.json(products);
         };
 
-        update(req, res) {
-            console.log("[REDIS] - update product");
+        update(req, res) {            
+            console.log("[REDIS] - Products - update by Id");
             var _id = req.params.id;
             var _product = req.body;
             if (_id) {
-                client.hset('Products', _id, JSON.stringify(_product));
+                redisConf.getClient().set('Products', _id, JSON.stringify(_product));
             }
             res.sendStatus(204);//.json(products);
         };
-
     };

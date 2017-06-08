@@ -1,16 +1,18 @@
-version: '2'
-services:
-  web:
-    build: .
-    ports:
-      - "3300:3300"
-    volumes:
-      - .:/code
-    links:
-      - redis
-      - mongodb
-  redis:
-    image: "redis"
+web:
+  container_name: "prodcatalog"    
+  build: .
+  volumes:
+    - "./app:/src/app"
+  ports:
+    - "3300:3300"    
+  links:
+    - "db:redis"
+    - mongo
 
-  mongodb:
-    image: "mongo"
+db:
+  image: redis
+  container_name: "redis"      
+
+mongo:
+  image: mongo
+  container_name: "mongodb"    

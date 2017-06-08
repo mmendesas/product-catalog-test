@@ -1,11 +1,13 @@
-FROM node:0.10.38
+FROM node:8.0.0-alpine
 
-ADD . /code
-WORKDIR /code
+RUN mkdir /src
 
 RUN npm install nodemon -g
+
+WORKDIR /src
+ADD /app/package.json /src/package.json
 RUN npm install
 
-EXPOSE 3300
+EXPOSE 3000
 
-CMD ["nodemon", "server.js"]
+CMD npm start

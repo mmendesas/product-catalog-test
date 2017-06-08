@@ -5,7 +5,7 @@ module.exports =
     class MongoProductsDAO {
 
         list(req, res) {
-            console.log("[MONGO] - get all products");
+            console.log("[MONGO] - Products - get all");
             model
                 .find(req.query)
                 .then(function (products) {
@@ -16,8 +16,8 @@ module.exports =
                 });
         };
 
-        findById(req, res) {
-            console.log("[MONGO] - find product by ID");
+        findById(req, res) {            
+            console.log("[MONGO] - Products - find by Id");
             model
                 .find({ sku: req.params.id })
                 .then(function (product) {
@@ -29,8 +29,8 @@ module.exports =
                 });
         };
 
-        removeById(req, res) {
-            console.log("[MONGO] - remove product by ID");
+        removeById(req, res) {            
+            console.log("[MONGO] - Products - remove by Id");
             model
                 .findByIdAndRemove(req.params.id)
                 .then(function () {
@@ -41,8 +41,8 @@ module.exports =
                 });
         };
 
-        add(req, res) {
-            console.log("[MONGO] - add products");
+        add(req, res) {            
+            console.log("[MONGO] - Products - add");
             var products = req.body;
             model
                 .find(products)
@@ -68,8 +68,8 @@ module.exports =
                 });
         };
 
-        update(req, res) {
-            console.log("[MONGO] - update product");
+        update(req, res) {            
+            console.log("[MONGO] - Products - update by Id");
             model
                 .update({ sku: req.params.id }, req.body)
                 .then(function (product) {

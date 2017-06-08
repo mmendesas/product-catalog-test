@@ -1,0 +1,21 @@
+{
+    "properties": {
+        "size": {
+            "id": "/properties/size",
+            "items": {
+                "id": "/properties/size/items",
+                "type": "string"
+            },
+            "type": "array"
+        },
+        "sku": {
+            "id": "/properties/sku",
+            "type": "string"
+        },
+        "warehouse": {
+            "id": "/properties/warehouse",
+            "type": "string"
+        }
+    },
+    "type": "object"
+}
